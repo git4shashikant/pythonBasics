@@ -1,0 +1,6 @@
+PROJECT = "Python Basics"
+MODULE1 = "fundamentals"
+MODULE2 = "multiprocessing"
+MODULE3 = "structures"
+MODULE4 = "threads"
+MODULE5 = "web"
