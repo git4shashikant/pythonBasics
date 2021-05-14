@@ -1,20 +1,28 @@
-class singleton:
-    _instance = None
-
-    def __init__(self, _instance = None):
-        if _instance is None:
-            _instance = singleton()
-
-    def __get__(self, _instance=None):
-        if _instance:
-            return _instance
-        else:
-            _instance = singleton()
-            return _instance
+import functools
 
 
-test1 = singleton(None)
-test2 = singleton(None)
-print(test1)
-print(test2)
-print(test1 == test2)
+def singleton(cls):
+    @functools.wraps(cls)
+    def wrapper(*args, **kwargs):
+        if not wrapper.instance:
+            print("inside wrapper.")
+            wrapper.instance = cls(*args, **kwargs)
+            print("return from wrapper.")
+        return wrapper.instance
+
+    wrapper.instance = None
+    print("return from outer singleton.")
+    return wrapper
+
+
+@singleton
+class singletonCls:
+    pass
+
+
+c1 = singletonCls()
+c2 = singletonCls()
+print(c1)
+print(c2)
+print(c1 == c2)
+print(c1 is c2)
